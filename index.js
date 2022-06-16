@@ -22,4 +22,8 @@ app.post("/sign-up", (req, res) => {
   res.send("OK");
 });
 
+app.get("/sign-up", (req, res) => {
+  res.send(users);
+});
+
 app.listen(5000);
