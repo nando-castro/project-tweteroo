@@ -34,4 +34,16 @@ app.post("/tweets", (req, res) => {
   res.send("OK");
 });
 
+app.get("/tweets", (req, res) => {
+  tweets = [
+    {
+      username: tweeter.username,
+      avatar: user.avatar,
+      tweet: tweeter.tweet,
+    },
+    { ...tweets },
+  ];
+  res.send(tweets);
+});
+
 app.listen(5000);
