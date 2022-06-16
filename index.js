@@ -26,4 +26,12 @@ app.get("/sign-up", (req, res) => {
   res.send(users);
 });
 
+app.post("/tweets", (req, res) => {
+  tweets.push({
+    username: tweeter.username,
+    tweet: tweeter.tweet,
+  });
+  res.send("OK");
+});
+
 app.listen(5000);
