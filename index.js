@@ -22,17 +22,24 @@ app.get("/sign-up", (req, res) => {
 
 app.post("/tweets", (req, res) => {
   let user = users.find(element => element.username === req.body.username)
-  console.log(user);
-  tweets.push({
+  let userTweet = {
     username: req.body.username,
     avatar: user.avatar,
     tweet: req.body.tweet,
-  });
+  };
+  tweets.push(userTweet);
   res.send("OK");
 });
 
 app.get("/tweets", (req, res) => {
-  res.send(tweets);
+  let tweeters = [];
+
+  for(let i = 0; i < 11; i++){
+    if(tweets[tweets.length - i ]){
+      tweeters.push(tweets[tweets.length - i]);
+    }
+  }
+  res.send(tweeters);
 });
 
 app.listen(5000);
