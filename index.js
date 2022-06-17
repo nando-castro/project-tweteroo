@@ -1,26 +1,21 @@
 import express from "express";
+import cors from 'cors';
 
 const app = express();
+app.use(cors());
+app.use(express.json());
 
 let users = [];
 let tweets = [];
-let user = {
-  username: "patolino",
-  avatar:
-    "https://static.wikia.nocookie.net/looney-tunes/images/c/c0/Patolino.png/revision/latest?cb=20151212212504&path-prefix=pt-br",
-};
-let tweeter = {
-  username: user.username,
-  tweet: "Qua qua qua qua",
-};
 
 app.post("/sign-up", (req, res) => {
   users.push({
-    username: user.username,
-    avatar: user.avatar,
+    username: req.body.username,
+    avatar: req.body.avatar,
   });
   res.send("OK");
 });
+
 
 app.get("/sign-up", (req, res) => {
   res.send(users);
@@ -28,21 +23,14 @@ app.get("/sign-up", (req, res) => {
 
 app.post("/tweets", (req, res) => {
   tweets.push({
-    username: tweeter.username,
-    tweet: tweeter.tweet,
+    username: req.body.username,
+    avatar: req.body.avatar,
+    tweet: req.body.tweet,
   });
   res.send("OK");
 });
 
 app.get("/tweets", (req, res) => {
-  tweets = [
-    {
-      username: tweeter.username,
-      avatar: user.avatar,
-      tweet: tweeter.tweet,
-    },
-    { ...tweets },
-  ];
   res.send(tweets);
 });
 
