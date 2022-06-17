@@ -42,4 +42,10 @@ app.get("/tweets", (req, res) => {
   res.send(tweeters);
 });
 
+app.get("/tweets/:username", (req, res) => {
+  let tweetsUser = tweets.filter(element => element.username === req.params.username);
+  console.log(tweetsUser);
+  res.send(tweetsUser);
+});
+
 app.listen(5000);
