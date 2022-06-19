@@ -9,16 +9,15 @@ let users = [];
 let tweets = [];
 
 app.post("/sign-up", (req, res) => {
-  if(req.body.username !== '' && req.body.avatar !== ''){
+  if (req.body.username !== "" && req.body.avatar !== "") {
     users.push({
       username: req.body.username,
       avatar: req.body.avatar,
     });
     res.status(201).send("OK");
-  }else{
-    res.sendStatus(400).send("Todos os campos são obrigatórios!");
+  } else {
+    res.status(400).send("Todos os campos são obrigatórios!");
   }
-  
 });
 
 app.get("/sign-up", (req, res) => {
@@ -26,21 +25,25 @@ app.get("/sign-up", (req, res) => {
 });
 
 app.post("/tweets", (req, res) => {
-  let user = users.find(element => element.username === req.body.username)
-  let userTweet = {
-    username: req.body.username,
-    avatar: user.avatar,
-    tweet: req.body.tweet,
-  };
-  tweets.push(userTweet);
-  res.send("OK");
+  if (req.body.username !== "" && req.body.tweet !== "") {
+    let user = users.find((element) => element.username === req.body.username);
+    let userTweet = {
+      username: req.body.username,
+      avatar: user.avatar,
+      tweet: req.body.tweet,
+    };
+    tweets.push(userTweet);
+    res.status(201).send("OK");
+  }else{
+    res.status(400).send("Todos os campos são obrigatórios!");
+  }
 });
 
 app.get("/tweets", (req, res) => {
   let tweeters = [];
 
-  for(let i = 0; i < 11; i++){
-    if(tweets[tweets.length - i ]){
+  for (let i = 0; i < 11; i++) {
+    if (tweets[tweets.length - i]) {
       tweeters.push(tweets[tweets.length - i]);
     }
   }
@@ -48,7 +51,9 @@ app.get("/tweets", (req, res) => {
 });
 
 app.get("/tweets/:username", (req, res) => {
-  let tweetsUser = tweets.filter(element => element.username === req.params.username);
+  let tweetsUser = tweets.filter(
+    (element) => element.username === req.params.username
+  );
   console.log(tweetsUser);
   res.send(tweetsUser);
 });
