@@ -9,11 +9,16 @@ let users = [];
 let tweets = [];
 
 app.post("/sign-up", (req, res) => {
-  users.push({
-    username: req.body.username,
-    avatar: req.body.avatar,
-  });
-  res.send("OK");
+  if(req.body.username !== '' && req.body.avatar !== ''){
+    users.push({
+      username: req.body.username,
+      avatar: req.body.avatar,
+    });
+    res.status(201).send("OK");
+  }else{
+    res.sendStatus(400).send("Todos os campos são obrigatórios!");
+  }
+  
 });
 
 app.get("/sign-up", (req, res) => {
