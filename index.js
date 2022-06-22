@@ -69,7 +69,7 @@ app.get("/tweets/:username", (req, res) => {
   let tweetsUser = tweets.filter(
     (element) => element.username === req.params.username
   );
-  res.send(tweetsUser);
+  res.send([...tweetsUser].reverse());
 });
 
 app.listen(5000);
